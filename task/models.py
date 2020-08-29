@@ -27,3 +27,6 @@ class Task(models.Model):
         on_delete=models.CASCADE,
         null=False
     )
+
+    class Meta:
+        ordering = ["-created_at"]
