@@ -8,4 +8,4 @@ class Category(models.Model):
     )
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["-name"]
