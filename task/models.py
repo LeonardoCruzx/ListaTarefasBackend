@@ -22,6 +22,9 @@ class Task(models.Model):
         null=False,
         default=False
     )
+    finished_date = models.DateTimeField(
+        null=True
+    )
     category = models.ForeignKey(
         "core.Category",
         on_delete=models.CASCADE,
