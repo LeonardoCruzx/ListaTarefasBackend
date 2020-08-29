@@ -3,7 +3,7 @@ from core.serializers import CategorySerializer
 from core.paginators import CategoryPaginator
 from core.permissions import IsOwnerOrStaff, ReadOnly
 
-from rest_framework.permissions import AllowAny,IsAuthenticated
+from rest_framework.permissions import AllowAny,IsAuthenticated,IsAdminUser
 from rest_framework.generics import ListCreateAPIView
 
 from django.utils.decorators import method_decorator
@@ -13,7 +13,7 @@ from django.views.decorators.vary import vary_on_cookie
 
 
 class CategoryList(ListCreateAPIView):
-    permission_classes = [IsAuthenticated|ReadOnly]
+    permission_classes = [IsAdminUser|ReadOnly]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     pagination_class = CategoryPaginator
