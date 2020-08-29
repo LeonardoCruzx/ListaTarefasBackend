@@ -10,5 +10,5 @@ urlpatterns = [
     path('auth/', UserAuth.as_view(), name='user_auth'),
     path('auth/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('list/', UserList.as_view(), name="user_list"),
-    path('detail/', UserDetail.as_view(), name="user_detail")
+    path('detail/<int:pk>/', UserDetail.as_view(), name="user_detail")
 ]
