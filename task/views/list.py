@@ -25,7 +25,7 @@ class TaskList(ListCreateAPIView):
     serializer_class = TaskSerializer
     pagination_class = TaskPaginator
     filter_backends = [DjangoFilterBackend,filters.OrderingFilter]
-    filterset_fields = ['category']
+    filterset_fields = ['category','user']
     ordering_fields = ['created_at','final_date']
 
     @method_decorator(cache_page(5))
@@ -34,4 +34,5 @@ class TaskList(ListCreateAPIView):
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        request.data["user"] = request.user.id
         return super().post(request, *args, **kwargs)
