@@ -6,6 +6,11 @@ class Category(models.Model):
         null=False,
         unique=True
     )
+    icon = models.CharField(
+        max_length=50,
+        null=False,
+        unique=True
+    )
 
     class Meta:
         ordering = ["-name"]

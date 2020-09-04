@@ -18,7 +18,7 @@ class TaskDetail(RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         if(request.data.get("concluded") == "true"):
             request.data["concluded_date"] = datetime.now()
-        else:
+        elif(request.data.get("concluded") == "false"):
             request.data["concluded_date"] = None
         return self.partial_update(request, *args, **kwargs)
 
