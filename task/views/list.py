@@ -1,5 +1,5 @@
 from task.models import Task
-from task.serializers import TaskSerializer
+from task.serializers import TaskSerializer, TaskSerializerWithCategory
 from task.paginators import TaskPaginator
 from task.permissions import IsOwnerOrStaff, ReadOnly
 
@@ -22,7 +22,7 @@ from django.views.decorators.vary import vary_on_cookie
 class TaskList(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = Task.objects.all()
-    serializer_class = TaskSerializer
+    serializer_class = TaskSerializerWithCategory
     pagination_class = TaskPaginator
     filter_backends = [DjangoFilterBackend,filters.OrderingFilter]
     filterset_fields = ['category','user']
@@ -35,4 +35,11 @@ class TaskList(ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         request.data["user"] = request.user.id
-        return super().post(request, *args, **kwargs)
+        t = TaskSerializer(data=request.data)
+        if t.is_valid():
+            t.save()
+            task_id = t.data["id"]
+            t = Task.objects.get(pk=task_id)
+            t = TaskSerializerWithCategory(t)
+            return Response(t.data, status=status.HTTP_201_CREATED)
+        return Response({"error":"invalid data"}, status=status.HTTP_400_BAD_REQUEST)
