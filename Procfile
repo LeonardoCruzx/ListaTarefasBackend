@@ -1,1 +1,1 @@
-web: gunicorn djangoecommerce.wsgi --log-file=-
+web: gunicorn listaTarefasBackend.wsgi --log-file=-
