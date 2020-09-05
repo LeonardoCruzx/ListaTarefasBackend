@@ -13,7 +13,7 @@ from django.views.decorators.vary import vary_on_cookie
 
 
 class CategoryList(ListCreateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated,IsAdminUser|ReadOnly]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     pagination_class = CategoryPaginator
