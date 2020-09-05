@@ -146,7 +146,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:4200',
     'http://192.168.0.106:4200',
-    'http://localhost:8080'
+    'http://localhost:8080',
     'https://lista-tarefas-frontend.herokuapp.com'
 ]
 
